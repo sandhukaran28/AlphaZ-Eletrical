@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="AlphaZ Electrical mark">
+  <defs>
+    <radialGradient id="discGrad" cx="38%" cy="30%" r="85%">
+      <stop offset="0%" stop-color="#FFE082"/>
+      <stop offset="55%" stop-color="#FFB81C"/>
+      <stop offset="100%" stop-color="#D98E00"/>
+    </radialGradient>
+    <linearGradient id="boltGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082"/>
+      <stop offset="100%" stop-color="#FFB81C"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="100" cy="100" r="94" fill="url(#discGrad)"/>
+  <circle cx="100" cy="100" r="94" fill="none" stroke="#0a1628" stroke-width="3"/>
+
+  <g fill="#0a1628" opacity="0.45">
+    <circle cx="58" cy="46" r="2"/>
+    <circle cx="142" cy="46" r="2"/>
+    <circle cx="40" cy="78" r="2"/>
+    <circle cx="160" cy="78" r="2"/>
+    <circle cx="48" cy="118" r="1.6"/>
+    <circle cx="152" cy="118" r="1.6"/>
+  </g>
+
+  <path d="
+    M 100 36
+    C 71 36 51 59 51 88
+    C 51 109 64 118 70 130
+    L 70 140
+    L 130 140
+    L 130 130
+    C 136 118 149 109 149 88
+    C 149 59 129 36 100 36 Z
+    M 73 144 L 127 144 L 127 151 L 73 151 Z
+    M 76 155 L 124 155 L 124 161 L 76 161 Z
+    M 81 165 L 119 165 L 110 174 L 90 174 Z
+  " fill="#0a1628"/>
+
+  <ellipse cx="76" cy="64" rx="9" ry="14" fill="#FFFFFF" opacity="0.16" transform="rotate(-25 76 64)"/>
+
+  <path d="M 102 50 L 78 101 L 100 101 L 97 135 L 122 84 L 100 84 Z" fill="url(#boltGrad)"/>
+  <path d="M 102 50 L 78 101 L 100 101 L 97 135 L 122 84 L 100 84 Z" fill="none" stroke="#0a1628" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>
