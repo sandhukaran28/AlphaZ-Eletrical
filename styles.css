@@ -146,7 +146,7 @@ p { margin: 0; }
    Top utility bar
    ============================================================ */
 .topbar {
-  background: var(--navy-950);
+  background: var(--navy-900);
   color: rgba(255,255,255,0.78);
   font-size: 0.8rem;
   border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -174,11 +174,9 @@ p { margin: 0; }
    ============================================================ */
 .site-header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: saturate(180%) blur(12px);
-  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  background: #ffffff;
   border-bottom: 1px solid var(--line);
-  transition: box-shadow 0.2s ease, background 0.2s ease;
+  transition: box-shadow 0.2s ease;
 }
 .site-header.is-stuck { box-shadow: var(--shadow); }
 .site-header__inner {
@@ -891,7 +889,8 @@ p { margin: 0; }
   display: flex; align-items: center; justify-content: center;
 }
 .contact__info strong { display: block; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-2); font-weight: 700; }
-.contact__info a, .contact__info span:not(.muted) { display: block; font-weight: 700; color: var(--ink); margin-top: 2px; }
+.contact__info a, .contact__info span:not(.muted):not(.contact__ico) { display: block; font-weight: 700; color: var(--ink); margin-top: 2px; }
+.contact__info .contact__ico svg { width: 20px; height: 20px; flex-shrink: 0; }
 .contact__info a:hover { color: var(--gold-600); }
 
 .contact__form {
