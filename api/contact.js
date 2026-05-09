@@ -1,6 +1,9 @@
 import { Resend } from 'resend';
 
-const TO_EMAIL = 'alphazelectrical@gmail.com';
+// While on Resend's free sandbox sender (onboarding@resend.dev), TO_EMAIL must
+// match the address you signed up with. Once you verify a custom domain, you
+// can switch this back to alphazelectrical@gmail.com (or anywhere).
+const TO_EMAIL = 'sandhukaran2821@gmail.com';
 const FROM_EMAIL = 'AlphaZ Website <onboarding@resend.dev>';
 
 const escapeHtml = (s) =>
@@ -107,12 +110,17 @@ export default async function handler(req, res) {
 
     if (error) {
       console.error('Resend error:', error);
-      return res.status(502).json({ error: 'Email service rejected the request' });
+      return res.status(502).json({
+        error: error.message || 'Email service rejected the request',
+        name: error.name,
+      });
     }
 
     return res.status(200).json({ ok: true });
   } catch (err) {
     console.error('Send failure:', err);
-    return res.status(500).json({ error: 'Failed to send' });
+    return res.status(500).json({
+      error: (err && err.message) ? err.message : 'Failed to send',
+    });
   }
 }
