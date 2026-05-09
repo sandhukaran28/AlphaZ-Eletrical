@@ -3,7 +3,7 @@ import { Resend } from 'resend';
 // While on Resend's free sandbox sender (onboarding@resend.dev), TO_EMAIL must
 // match the address you signed up with. Once you verify a custom domain, you
 // can switch this back to alphazelectrical@gmail.com (or anywhere).
-const TO_EMAIL = 'sandhukaran2821@gmail.com';
+const TO_EMAIL = 'alphazelectrical@gmail.com';
 const FROM_EMAIL = 'AlphaZ Website <onboarding@resend.dev>';
 
 const escapeHtml = (s) =>
