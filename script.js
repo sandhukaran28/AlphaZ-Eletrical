@@ -96,43 +96,67 @@
     counters.forEach(el => io2.observe(el));
   }
 
-  /* ----- Quote form (no backend yet — opens mailto with pre-filled body) ----- */
+  /* ----- Quote form (POSTs to /api/contact serverless function) ----- */
   const form = $('#quoteForm');
   const note = $('#formNote');
   if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtn = submitBtn ? submitBtn.innerHTML : '';
+
+    const setStatus = (text, kind) => {
       note.classList.remove('is-success', 'is-error');
+      note.textContent = text;
+      if (kind) note.classList.add('is-' + kind);
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      setStatus('', null);
 
       const data = Object.fromEntries(new FormData(form).entries());
+      data.urgent = !!data.urgent;
+
       const required = ['name', 'email', 'message'];
       const missing = required.filter(k => !String(data[k] || '').trim());
       if (missing.length) {
-        note.textContent = 'Please fill in your name, email, and a brief description.';
-        note.classList.add('is-error');
+        setStatus('Please fill in your name, email, and a brief description.', 'error');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(data.email).trim())) {
+        setStatus('That email address doesn’t look right — mind double-checking?', 'error');
         return;
       }
 
-      const subject = encodeURIComponent(
-        `[AlphaZ Quote] ${data.type || 'Project'} — ${data.name}${data.urgent ? ' (URGENT)' : ''}`
-      );
-      const lines = [
-        `Name: ${data.name}`,
-        `Email: ${data.email}`,
-        `Phone: ${data.phone || '—'}`,
-        `City: ${data.city || '—'}`,
-        `Project type: ${data.type || '—'}`,
-        `Urgent: ${data.urgent ? 'Yes' : 'No'}`,
-        '',
-        '— Project details —',
-        data.message
-      ];
-      const body = encodeURIComponent(lines.join('\n'));
-      const mailto = `mailto:alphazelectrical@gmail.com?subject=${subject}&body=${body}`;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Sending…';
+      }
 
-      window.location.href = mailto;
-      note.textContent = 'Opening your email app… if nothing happens, email alphazelectrical@gmail.com directly.';
-      note.classList.add('is-success');
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || 'Failed to send');
+        }
+
+        setStatus('Thanks — your request is in. We’ll get back to you within one business day.', 'success');
+        form.reset();
+      } catch (err) {
+        setStatus(
+          'Something went wrong sending your message. Please try again, or email alphazelectrical@gmail.com directly.',
+          'error'
+        );
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtn;
+        }
+      }
     });
   }
 })();

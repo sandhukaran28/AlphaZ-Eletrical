@@ -911,6 +911,14 @@ p { margin: 0; }
   box-shadow: var(--shadow);
   display: grid; gap: 16px;
 }
+.hp-field {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important; height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field label {
   font-size: 0.82rem; font-weight: 700;
